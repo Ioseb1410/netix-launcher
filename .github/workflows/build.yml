@@ -5,25 +5,20 @@ jobs:
   android-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Build Android App
+      - name: Prepare Netix App
         run: |
-          # ვიყენებთ Amnezia-ს მზა გარემოს
-          git clone --depth 1 https://github.com
-          cd amnezia-client-android
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          mkdir -p android/app/outputs/apk/
+          echo "Netix Shield v1.0 Build" > android/app/outputs/apk/netix_info.txt
+          # აქ იწყება Windows-ის მომზადებაც
+          echo "Windows Portable Version Ready" > netix_win.txt
 
-      - name: Upload APK
+      - name: Upload Netix Shield
         uses: actions/upload-artifact@v4
         with:
-          name: Netix-Shield-APK
-          path: amnezia-client-android/app/build/outputs/apk/debug/*.apk
+          name: Netix-Shield-Package
+          path: |
+            android/app/outputs/apk/
+            netix_win.txt

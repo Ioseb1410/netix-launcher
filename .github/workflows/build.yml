@@ -11,22 +11,24 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: '17' # განვაახლეთ Java უფრო სტაბილურზე
           distribution: 'temurin'
 
       - name: Download Amnezia Base
         run: |
-          git clone https://github.com
-          cd amnezia-client-android
-          echo "Branding Netix Shield..."
+          # ვიყენებთ სხვადასხვა საქაღალდეს კონფლიქტის თავიდან ასაცილებლად
+          git clone https://github.com amnezia_app
+          cd amnezia_app
+          echo "Netix Shield Branding..."
 
       - name: Build Android APK
         run: |
-          cd amnezia-client-android
+          cd amnezia_app
+          chmod +x gradlew
           ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Netix-Shield-Android
-          path: amnezia-client-android/app/build/outputs/apk/debug/*.apk
+          path: amnezia_app/app/build/outputs/apk/debug/*.apk

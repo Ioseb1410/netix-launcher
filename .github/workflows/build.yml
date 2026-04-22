@@ -1,0 +1,28 @@
+name: Build Netix Android
+on:
+  workflow_dispatch: # საშუალებას გაძლევს ხელით ჩართო აწყობა
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Prepare Netix Branding
+        run: |
+          echo "Building NetixPro App for 91.239.207.83"
+          # აქ იწყება Amnezia-ს ბაზის მომზადება
+          git clone https://github.com
+          # აქ მომავალში ჩავანაცვლებთ ლოგოებს შენი NX-ით
+
+      - name: Build APK
+        run: |
+          echo "Starting Build Process..."
+          # რეალური კომპილაცია 10-15 წუთს წაიღებს

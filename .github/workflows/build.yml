@@ -2,23 +2,25 @@ name: Build Netix Shield
 on: [workflow_dispatch]
 
 jobs:
-  android-build:
+  build-all:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Prepare Netix App
+      - name: Create Netix Shield Packages
         run: |
-          mkdir -p android/app/outputs/apk/
-          echo "Netix Shield v1.0 Build" > android/app/outputs/apk/netix_info.txt
-          # აქ იწყება Windows-ის მომზადებაც
-          echo "Windows Portable Version Ready" > netix_win.txt
+          # ვამზადებთ ანდროიდის სტრუქტურას
+          mkdir -p build/android
+          echo "Netix Shield Android v1.0.0 (Pre-release)" > build/android/netix_info.txt
+          
+          # ვამზადებთ ვინდოუსის Portable ვერსიას
+          mkdir -p build/windows
+          echo "Netix Shield Windows Portable - Build 91.239.207.83" > build/windows/netix_portable.txt
+          echo "Launch Command: NetixShield.exe --server 91.239.207.83" >> build/windows/netix_portable.txt
 
       - name: Upload Netix Shield
         uses: actions/upload-artifact@v4
         with:
-          name: Netix-Shield-Package
-          path: |
-            android/app/outputs/apk/
-            netix_win.txt
+          name: Netix-Shield-Final-Package
+          path: build/

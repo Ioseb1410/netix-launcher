@@ -14,19 +14,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Create Dummy Structure
+      - name: Build Android App
         run: |
-          mkdir -p app/build/outputs/apk/debug/
-          echo "Netix Shield Build Initialization..." > app/build/outputs/apk/debug/info.txt
-
-      - name: Build Netix Pro
-        run: |
-          echo "Compiling Netix Shield..."
-          # თუ გარე გადმოწერა ჭედავს, ჯერ სტრუქტურას ვამოწმებთ
-          sleep 5 
+          # ვიყენებთ Amnezia-ს მზა გარემოს
+          git clone --depth 1 https://github.com
+          cd amnezia-client-android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Netix-Shield-Android
-          path: app/build/outputs/apk/debug/
+          name: Netix-Shield-APK
+          path: amnezia-client-android/app/build/outputs/apk/debug/*.apk

@@ -1,12 +1,12 @@
-name: Build Netix Android
+name: Build Netix Shield
 on:
-  workflow_dispatch: # საშუალებას გაძლევს ხელით ჩართო აწყობა
+  workflow_dispatch: # ხელით ჩასართავად
 
 jobs:
-  build:
+  android-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Java
@@ -15,14 +15,14 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Prepare Netix Branding
+      - name: Configure Netix Branding
         run: |
-          echo "Building NetixPro App for 91.239.207.83"
-          # აქ იწყება Amnezia-ს ბაზის მომზადება
-          git clone https://github.com
-          # აქ მომავალში ჩავანაცვლებთ ლოგოებს შენი NX-ით
+          echo "Setting up Netix Shield Branding..."
+          echo "App Name: Netix Shield"
+          echo "Server: 91.239.207.83"
+          # აქ იწყება შენი ლოგოს ინტეგრაცია
 
-      - name: Build APK
+      - name: Build Netix APK
         run: |
-          echo "Starting Build Process..."
-          # რეალური კომპილაცია 10-15 წუთს წაიღებს
+          echo "Compiling Netix Shield for Android..."
+          # რეალური ბილდი აქ მოხდება
